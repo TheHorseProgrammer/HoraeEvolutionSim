@@ -34,9 +34,8 @@ pub fn create_environment<S>(name: Option<S>, const_growth_rate: f64, growth_per
         tick: 0,
     }
 }
-
-impl Environment {
-    pub fn copy(&self) -> Environment {
+impl Clone for Environment {
+    fn clone(&self) -> Environment {
         Environment {
             name: self.name.clone(),
             const_growth_rate: self.const_growth_rate,
@@ -45,6 +44,15 @@ impl Environment {
             tick: self.tick,
         }
     }
+    fn clone_from(&mut self, source: &Environment) {
+        self.name = source.name.clone();
+        self.const_growth_rate = source.const_growth_rate;
+        self.growth_percentage = source.growth_percentage;
+        self.current_resources = source.current_resources;
+        self.tick = source.tick;
+    }
+}
+impl Environment {
     pub fn tick(&mut self) {
         self.current_resources *= 1.0 + (self.growth_percentage / 100.0);
         self.current_resources += self.const_growth_rate;
