@@ -1,4 +1,4 @@
-use crate::entities::environment::{create_environment, Environment};
+use crate::entities::environment::create_environment;
 
 pub mod entities;
 fn main() {

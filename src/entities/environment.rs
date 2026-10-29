@@ -46,21 +46,21 @@ impl Environment {
         }
     }
     pub fn tick(&mut self) {
-        self.current_resources *= (1.0 + (self.growth_percentage / 100.0));
+        self.current_resources *= 1.0 + (self.growth_percentage / 100.0);
         self.current_resources += self.const_growth_rate;
         self.tick += 1;
     }
     
     pub fn use_resource(&mut self, target: f64) -> f64{
-        if (target <= 0.0) {
-            return 0.0;
-        } else if (target >= self.current_resources) {
+        if target <= 0.0 {
+            0.0
+        } else if target >= self.current_resources {
             let ret = self.current_resources;
             self.current_resources = 0.0;
-            return ret;
+            ret
         } else {
             self.current_resources -= target;
-            return target;
+            target
         }
     }
     // Getters
